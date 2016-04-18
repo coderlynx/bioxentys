@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-04-2016 a las 02:15:28
+-- Tiempo de generación: 18-04-2016 a las 10:07:55
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 7.0.4
 
@@ -32,7 +32,7 @@ CREATE TABLE `novedades` (
   `id` int(11) NOT NULL,
   `titulo` varchar(100) COLLATE utf8_bin NOT NULL,
   `descripcion` text COLLATE utf8_bin NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` varchar(10) COLLATE utf8_bin NOT NULL,
   `rutaFoto` varchar(100) COLLATE utf8_bin NOT NULL,
   `vinculo` varchar(100) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -73,7 +73,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `novedades`
 --
 ALTER TABLE `novedades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --

@@ -1,23 +1,65 @@
 <?php 
 require "DBConnection.php";
 
-class Novedad {
-  private $id;
-  private $titulo;
-  private $fecha;
-  private $descripcion;
-  private $rutaFoto;
-  private $vinculo;
-  
-  function __construct($titulo, $fecha, $descripcion, $rutaFoto, $vinculo) {
-    $this->titulo = $titulo;
-    $this->fecha = $fecha;
-    $this->descripcion = $descripcion;
-    $this->rutaFoto = $rutaFoto;
-    $this->vinculo = $vinculo;
-  }
-  
-  public static function insert($novedad){
+class Novedad implements JsonSerializable {
+    private $id;
+    private $titulo;
+    private $fecha;
+    private $descripcion;
+    private $rutaFoto;
+    private $vinculo;
+
+    public function __construct($id = null, $titulo, $fecha, $descripcion, $rutaFoto, $vinculo) {
+        $this->id = $id;
+        $this->titulo = $titulo;
+        $this->descripcion = $descripcion;
+        $this->rutaFoto = $rutaFoto;
+        $this->vinculo = $vinculo;
+        $this->fecha = $fecha;
+    }
+    
+    private function normalizeDate($date) {
+        if(!empty($date)){ 
+            $var = explode('/',str_replace('-','/',$date));
+            return "$var[2]/$var[1]/$var[0]"; 
+        }
+    }
+    
+    public  function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'titulo' => $this->titulo,
+            'fecha' => $this->fecha,
+            'descripcion' => $this->descripcion,
+            'rutaFoto' => $this->rutaFoto,
+            'vinculo' => $this->vinculo
+        ];	
+	}
+    
+    public static function getAll(){
+		try {
+		    $query = "SELECT * FROM novedades";
+		    $stmt = DBConnection::getStatement($query);
+		   
+		    if(!$stmt->execute()) {
+                throw new Exception("Error al traer las novedades.");
+			}
+		  
+			$novedades = array();
+			
+			while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) !== false) {
+                $fechaNormalizada = self::normalizeDate($row['fecha']);
+                $novedad = new Novedad($row['id'], $row['titulo'], $fechaNormalizada, $row['descripcion'], $row['rutaFoto'], $row['vinculo']);
+              
+                $novedades[] = $novedad;
+			}
+		    return $novedades;
+        } catch(PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+		}
+    }
+    
+    public static function insert($novedad){
     $db = DBConnection::getConnection();
 
     if($novedad->id) /*Modifica*/ {
@@ -37,7 +79,7 @@ class Novedad {
             }
             $db->commit();
             return $novedad;
-            
+
         } catch(PDOException $e){
               echo 'Error: ' . $e->getMessage();
               $db->rollBack();
@@ -64,9 +106,9 @@ class Novedad {
             $db->rollBack();
         }
     }
-  }
+    }
 
-  private static function bindearDatos($stmt, $novedad) {
+    private static function bindearDatos($stmt, $novedad) {
     $stmt->bindParam(':titulo', $novedad->titulo, PDO::PARAM_STR);
     $stmt->bindParam(':descripcion', $novedad->descripcion, PDO::PARAM_STR);
     $stmt->bindParam(':fecha', $novedad->fecha, PDO::PARAM_STR);
@@ -74,6 +116,6 @@ class Novedad {
     $stmt->bindParam(':vinculo', $novedad->vinculo, PDO::PARAM_STR);
 
     return $stmt;
-  }
+    }
 }
 ?>

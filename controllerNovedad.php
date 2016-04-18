@@ -2,6 +2,14 @@
 require "novedad.php";
 require "archivo.php";
 
+/* Trae todas las novedades */
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	$novedades = Novedad::getAll();
+	echo json_encode($novedades);
+    exit;
+}
+
+/* Inserta novedades */
 // Tratamiento archivo
 $archivo = new Archivo();
 $archivo->nombreInput = key($_FILES);
@@ -17,7 +25,7 @@ if($archivo->validar()) {
 
 // Cargo novedad
 if($cargaArchivoExitosa) {
-    $novedad = new Novedad($_POST['titulo'], $_POST['fecha'], $_POST['descripcion'], $archivo->ruta, $_POST['vinculo']);
+    $novedad = new Novedad(null, $_POST['titulo'], $_POST['fecha'], $_POST['descripcion'], $archivo->ruta, $_POST['vinculo']);
     Novedad::insert($novedad);
 }
 ?>
