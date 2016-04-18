@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if(!isset($_SESSION["nombre"]))	{
+    echo "Tenes que estar logueado";
+    exit;
+    //header("Location: index.php");  //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión) 
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

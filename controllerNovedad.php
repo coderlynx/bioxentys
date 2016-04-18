@@ -1,6 +1,7 @@
 <?php 
 require "novedad.php";
 require "archivo.php";
+session_start();
 
 /* Trae todas las novedades */
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -8,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	echo json_encode($novedades);
     exit;
 }
+
 
 /* Inserta novedades */
 // Tratamiento archivo
@@ -20,12 +22,15 @@ $archivo->directorio = "images\\";
 $archivo->ruta = "$archivo->directorio"."$archivo->nombre";
 
 if($archivo->validar()) {
-    $cargaArchivoExitosa = $archivo->mover();
+    //$cargaArchivoExitosa = $archivo->mover();
+    $ruta_resize = $archivo->resize(150,150);
 }
 
 // Cargo novedad
-if($cargaArchivoExitosa) {
-    $novedad = new Novedad(null, $_POST['titulo'], $_POST['fecha'], $_POST['descripcion'], $archivo->ruta, $_POST['vinculo']);
-    Novedad::insert($novedad);
+if($ruta_resize) {
+    $novedad = new Novedad(null, $_POST['titulo'], $_POST['fecha'], $_POST['descripcion'], $ruta_resize, $_POST['vinculo']);
+    $nov = Novedad::insert($novedad);
+    
+    if($nov) echo 'Novedad cargada exitosamente';
 }
 ?>

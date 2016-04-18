@@ -24,6 +24,52 @@ $(document).ready(function(){
         });
         e.preventDefault();
     });
+    
+    $("#login").click(function(){
+        var usuario = {};
+        usuario.nombre = $("#nombre").val();
+        usuario.password = $("#password").val();
+        
+        var jsonUsuario = JSON.stringify(usuario);
+    
+         $.post('controllerAutenticacion.php', {usuario:jsonUsuario }, function(respuestaJson) {
+               alert(respuestaJson);
+               
+            }).error(function(e){
+                    console.log('Error al ejecutar la petición por:' + e);
+                }
+            );
+    });
+    
+    $("#logout").click(function(){
+        
+         $.ajax({
+            type: "DELETE",
+            url: "controllerAutenticacion.php",
+            success: function(data){
+                alert(data);
+            }
+            })
+        });
+
+                      
+    $("#cargar").click(function(){
+        
+         $.get('controllerAutenticacion.php', function(respuestaJson) {
+             if(respuestaJson) {
+                  alert(respuestaJson);
+             } else {
+                 window.location.href = "cargarNovedad.php";
+             }
+              
+               
+            }).error(function(e){
+                    console.log('Error al ejecutar la petición por:' + e);
+                }
+            );
+    });
+    
+    
 });
 function cargarNovedades() {
     var _this = this;
