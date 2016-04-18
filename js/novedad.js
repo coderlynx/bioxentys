@@ -1,8 +1,10 @@
 $(document).ready(function(){
     cargarNovedades();
     
-    $("#formAltaNovedad").submit(function(e){
+    $("#novedad1").submit(function(e){
+       
         var formData = new FormData(this);
+        
         $.ajax({
             type: "POST",
             url: "controllerNovedad.php",
@@ -13,8 +15,8 @@ $(document).ready(function(){
             processData:false,
             success: function(data){
                 alert(data);
-                window.location.replace("index.html");
-                cargarNovedades(); 
+                //window.location.replace("index.html");
+                //cargarNovedades(); 
             },
             error: function(xhr, textStatus, error){
                 console.log(xhr.statusText);
@@ -22,24 +24,39 @@ $(document).ready(function(){
                 console.log(error);
             }
         });
-        e.preventDefault();
-    });
-    
-    $("#login").click(function(){
-        var usuario = {};
-        usuario.nombre = $("#nombre").val();
-        usuario.password = $("#password").val();
         
-        var jsonUsuario = JSON.stringify(usuario);
-    
-         $.post('controllerAutenticacion.php', {usuario:jsonUsuario }, function(respuestaJson) {
-               alert(respuestaJson);
-               
-            }).error(function(e){
-                    console.log('Error al ejecutar la petición por:' + e);
-                }
-            );
+        e.preventDefault();
+        return false;
     });
+    
+    $("#novedad2").submit(function(e){
+       
+        var formData = new FormData(this);
+        
+        $.ajax({
+            type: "POST",
+            url: "controllerNovedad.php",
+            mimeType:"multipart/form-data",
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                alert(data);
+                //window.location.replace("index.html");
+                //cargarNovedades(); 
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+        
+        e.preventDefault();
+        return false;
+    });
+
     
     $("#logout").click(function(){
         
@@ -48,28 +65,11 @@ $(document).ready(function(){
             url: "controllerAutenticacion.php",
             success: function(data){
                 alert(data);
+                window.location.href = "login.html";
             }
             })
         });
 
-                      
-    $("#cargar").click(function(){
-        
-         $.get('controllerAutenticacion.php', function(respuestaJson) {
-             if(respuestaJson) {
-                  alert(respuestaJson);
-             } else {
-                 window.location.href = "cargarNovedad.php";
-             }
-              
-               
-            }).error(function(e){
-                    console.log('Error al ejecutar la petición por:' + e);
-                }
-            );
-    });
-    
-    
 });
 function cargarNovedades() {
     var _this = this;
@@ -80,10 +80,11 @@ function cargarNovedades() {
         url: "controllerNovedad.php",
         success:  function(novedades){  
             var rta = JSON.parse(novedades);
-            var items = [];
-            for (i=0; i < rta.length; i++) {
-                _this.dibujarNovedadesEnPantalla($("#novedades"), rta[i]);
-            }
+           // var items = [];
+            //for (i=0; i < rta.length; i++) {
+                _this.dibujarNovedadesEnPantalla($("#novedad1"), rta[0]);
+                _this.dibujarNovedadesEnPantalla($("#novedad2"), rta[1]);
+            //}
         },
         error:function(xhr, textStatus, error){
             console.log(xhr.statusText);
@@ -94,6 +95,18 @@ function cargarNovedades() {
 }
 function dibujarNovedadesEnPantalla(contenedor, novedad) {
     var _this = this;
+    contenedor.find("#id").val(novedad.id);
+    contenedor.find("#titulo").val(novedad.titulo);
+    contenedor.find("#descripcion").val(novedad.descripcion);
+    contenedor.find("#vinculo").val(novedad.vinculo);
+    
+    contenedor.find("#prev").attr("src",novedad.rutaFoto);
+    
+    var dateAr = novedad.fecha.split('/');
+    var newDate = dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0];
+    
+    contenedor.find("#fecha").val(newDate);
+    /*var _this = this;
     contenedor.css("display","flex");
     var article_item = $("<article>");
     article_item.attr("id", novedad.id);
@@ -118,8 +131,11 @@ function dibujarNovedadesEnPantalla(contenedor, novedad) {
     article_item.append(a);
     
     contenedor.append(article_item);
-    return article_item;		 
+    return article_item;*/
+    
 }
+
+
 function reset() {
     document.getElementById("formAltaNovedad").reset();
     $("#titulo").focus();

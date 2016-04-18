@@ -55,7 +55,7 @@ class archivo {
       $x = ($w - $width / $ratio) / 2;
       $w = ceil($width / $ratio);
       /* new file name */
-      $path = 'images/'.$width.'x'.$height.'_'.$_FILES[$this->nombreInput]['name'];
+      $path = 'images/novedades/'.$width.'x'.$height.'_'.$_FILES[$this->nombreInput]['name'];
       /* read binary data from image file */
       $imgString = file_get_contents($_FILES[$this->nombreInput]['tmp_name']);
       /* create image from string */

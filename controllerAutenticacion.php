@@ -5,6 +5,7 @@ session_start();
 //EXTRAER el metodo de la peticion (GET,POST,PUT,DELETE)
 $metodo = strtolower($_SERVER['REQUEST_METHOD']);
 
+
 // Filtrar método
 switch ($metodo) {
     case 'get':
@@ -15,13 +16,13 @@ switch ($metodo) {
         break;
     case 'post':
         /*Valido Usuario */
-        $usr = json_decode($_POST['usuario']);
+        $usr = json_decode($_POST['user']);
 
         $rto = Usuario::login($usr->nombre, $usr->password);
 
         if ($rto === 0) die("El nombre y/o el password no son correctos.");
 
-        echo 'Bienvenido: ' . $rto;
+        echo 'ok';
 
            
         break;

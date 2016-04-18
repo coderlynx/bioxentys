@@ -6,7 +6,7 @@ class DBConnection
 	public static function getConnection()
 	{
 		if(empty(self::$db)) {
-			self::$db = new PDO('mysql:host=localhost;dbname=bioxentys;charset=utf8', 'root', '');
+			self::$db = new PDO('mysql:host=localhost;dbname=bioxenty;charset=utf8', 'root', '');
 		}
 		return self::$db;
 	}

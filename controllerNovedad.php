@@ -10,11 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     exit;
 }
 
-
 /* Inserta novedades */
 // Tratamiento archivo
 $archivo = new Archivo();
 $archivo->nombreInput = key($_FILES);
+if(!isset($_FILES[$archivo->nombreInput]['name'])) die(json_encode($_POST));//die('No hay foto cargada');
+
 $archivo->nombre = $_FILES[$archivo->nombreInput]['name'];
 $archivo->tipo = $_FILES[$archivo->nombreInput]['type'];
 $archivo->tamano = $_FILES[$archivo->nombreInput]['size'];
@@ -28,7 +29,7 @@ if($archivo->validar()) {
 
 // Cargo novedad
 if($ruta_resize) {
-    $novedad = new Novedad(null, $_POST['titulo'], $_POST['fecha'], $_POST['descripcion'], $ruta_resize, $_POST['vinculo']);
+    $novedad = new Novedad($_POST['id'], $_POST['titulo'], $_POST['fecha'], $_POST['descripcion'], $ruta_resize, $_POST['vinculo']);
     $nov = Novedad::insert($novedad);
     
     if($nov) echo 'Novedad cargada exitosamente';

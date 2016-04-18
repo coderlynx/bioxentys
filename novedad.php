@@ -38,7 +38,7 @@ class Novedad implements JsonSerializable {
     
     public static function getAll(){
 		try {
-		    $query = "SELECT * FROM novedades ORDER BY id DESC LIMIT 2";
+		    $query = "SELECT * FROM novedades";
 		    $stmt = DBConnection::getStatement($query);
 		   
 		    if(!$stmt->execute()) {
