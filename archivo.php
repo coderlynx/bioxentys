@@ -22,9 +22,10 @@ class archivo {
   }
 
   public function validar() {
-    if(!(strpos($this->tipo, "gif") || strpos($this->tipo, "jpeg"))) {
+    if(!(strpos($this->tipo, "gif") || strpos($this->tipo, "jpeg")) || strpos($this->tipo, "jpg") || 
+         strpos($this->tipo, "png")) {
       echo "La extensión del archivo no es correcta.<br>
-            Se permiten archivos .gif o .jpeg.<br>";
+            Se permiten archivos .gif o .jpeg o .png o jpg.<br>";
       return false;
     }
     if($this->size > self::MAX_SIZE) {
@@ -37,10 +38,10 @@ class archivo {
 
   public function mover() {
     if (move_uploaded_file($_FILES[$this->nombreInput]["tmp_name"], "$this->directorio/$this->nombre")){
-      echo "El archivo ha sido cargado correctamente.<br>";
+      echo "El archivo ha sido cargado correctamente.";
       return true;
     }else{
-      echo "El archivo no se ha podido guardar correctamente.<br>";
+      echo "El archivo no se ha podido guardar correctamente.";
       return false;
     }
   }

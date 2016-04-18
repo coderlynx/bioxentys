@@ -33,7 +33,7 @@ class Novedad {
 
 
             if(!$stmt->execute()) {
-              throw new Exception("Error en el editado de la novedad.<br>");
+              throw new Exception("Error en el editado de la novedad.");
             }
             $db->commit();
             return $novedad;
@@ -53,7 +53,7 @@ class Novedad {
             $stmt = Novedad::bindearDatos($stmt, $novedad);
 
             if(!$stmt->execute()) {
-              throw new Exception("Error en el insertado de la novedad.<br>");
+              throw new Exception("Error en el insertado de la novedad.");
             }
             $novedad->id = $db->lastInsertId();
             $db->commit();

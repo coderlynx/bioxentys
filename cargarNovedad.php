@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Cargar Novedad</title>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/novedad.js"></script>
 </head>
 <body>
-  <form method="post" action="controllerNovedad.php" enctype="multipart/form-data">
+  <form id="formAltaNovedad" method="post" enctype="multipart/form-data">
     <fieldset>
       <legend>Ingreso de Novedad</legend>
       <label for="titulo">Título: </label>
@@ -27,7 +29,6 @@
       <label for="foto">Foto: </label>
       <br>
       <input type="file" name="foto" required>
-      <!--<input type="hidden" name="MAX_FILE_SIZE" value="100000">-->
       <br><br>
       <input type="reset" value="Borrar Datos">
       <input type="submit" value="Cargar Novedad">
