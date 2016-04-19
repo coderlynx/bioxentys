@@ -54,7 +54,7 @@
 ============================== -->
 
 
-    <script src="../js/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.nicescroll.js"></script>
     <script src="../js/wow.js"></script>
@@ -73,8 +73,10 @@
          $.post('controllerAutenticacion.php', {user:jsonUsuario }, function(respuestaJson) {
              if(respuestaJson == 'ok') {
                  window.location.href = "admin.php";
+             } else {
+               alert(respuestaJson);  
              }  
-               //alert(respuestaJson);
+               
                
             }).error(function(e){
                     console.log('Error al ejecutar la petición por:' + e);

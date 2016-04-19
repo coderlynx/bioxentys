@@ -116,12 +116,20 @@ if(!isset($_SESSION["nombre"]))	{
 ============================== -->
 
 
-    <script src="../js/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.nicescroll.js"></script>
     <script src="../js/wow.js"></script>
     <script src="../js/script.js"></script>
-    <script src="../js/novedad.js"></script>
+    <script src="js/novedad.js"></script>
+     <script>
+        
+    $(document).ready(function(){
+        
+      Novedades.init();
+        
+    });
+    </script>
 
 
 </body>

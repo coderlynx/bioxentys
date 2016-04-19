@@ -1,5 +1,7 @@
-$(document).ready(function(){
-    cargarNovedades();
+var Novedades = {
+init: function() {
+    var _this = this;
+    _this.cargarNovedades();
     
     $("#novedad1").submit(function(e){
        
@@ -70,8 +72,8 @@ $(document).ready(function(){
             })
         });
 
-});
-function cargarNovedades() {
+},
+cargarNovedades: function() {
     var _this = this;
     $.ajax({
         async:false,    
@@ -92,20 +94,31 @@ function cargarNovedades() {
             console.log(error);
         }
     });
-}
-function dibujarNovedadesEnPantalla(contenedor, novedad) {
+},
+dibujarNovedadesEnPantalla: function(contenedor, novedad) {
     var _this = this;
-    contenedor.find("#id").val(novedad.id);
-    contenedor.find("#titulo").val(novedad.titulo);
-    contenedor.find("#descripcion").val(novedad.descripcion);
-    contenedor.find("#vinculo").val(novedad.vinculo);
+    //si es llamado desde el index
+    if ($("#novedades").length == 1) {
+        contenedor.find("#id").html(novedad.id);
+        contenedor.find("#titulo").html(novedad.titulo);
+        contenedor.find("#descripcion").html(novedad.descripcion);
+        contenedor.find("#vinculo").attr("href",novedad.vinculo);
+        contenedor.find("#foto").attr("src",novedad.rutaFoto);
+        contenedor.find("#fecha").html(novedad.fecha);
+        
+    } else { //si es desde el panel de carga
+        contenedor.find("#id").val(novedad.id);
+        contenedor.find("#titulo").val(novedad.titulo);
+        contenedor.find("#descripcion").val(novedad.descripcion);
+        contenedor.find("#vinculo").val(novedad.vinculo);
+        contenedor.find("#prev").attr("src",novedad.rutaFoto);
+
+        var dateAr = novedad.fecha.split('/');
+        var newDate = dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0];
+
+        contenedor.find("#fecha").val(newDate);
+    }
     
-    contenedor.find("#prev").attr("src",novedad.rutaFoto);
-    
-    var dateAr = novedad.fecha.split('/');
-    var newDate = dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0];
-    
-    contenedor.find("#fecha").val(newDate);
     /*var _this = this;
     contenedor.css("display","flex");
     var article_item = $("<article>");
@@ -133,12 +146,10 @@ function dibujarNovedadesEnPantalla(contenedor, novedad) {
     contenedor.append(article_item);
     return article_item;*/
     
-}
-
-
-function reset() {
+},
+reset: function() {
     document.getElementById("formAltaNovedad").reset();
     $("#titulo").focus();
     window.location.href = "index.html";
 }
-
+}
