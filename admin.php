@@ -58,7 +58,7 @@ if(!isset($_SESSION["nombre"]))	{
                             <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Ingresar título" required autofocus>
 
                             <label for="descripcion">Descripción:</label>
-                            <textarea class="form-control" name="descripcion" rows="5" id="descripcion"></textarea>
+                            <textarea class="form-control" name="descripcion" rows="5" id="descripcion" required></textarea>
 
                             <label for="vinculo">Vínculo a nota:</label>
                             <input type="text" id="vinculo" name="vinculo" class="form-control" placeholder="Ingresar vinculo" required>
@@ -67,7 +67,7 @@ if(!isset($_SESSION["nombre"]))	{
                             <input type="date" class="form-control" id="fecha" name="fecha" required>
                             
                             <label for="foto">Subir imagen</label>
-                            <input type="file" style="margin-bottom: 20px;" name="foto" id="foto1">
+                            <input type="file" style="margin-bottom: 20px;" name="foto" id="foto1" required>
                             
                             <div>
                                 <label for="thumb">Previsualización</label>
@@ -90,7 +90,7 @@ if(!isset($_SESSION["nombre"]))	{
                             <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Ingresar título" required autofocus>
 
                             <label for="descripcion">Descripción:</label>
-                            <textarea class="form-control" name="descripcion" rows="5" id="descripcion"></textarea>
+                            <textarea class="form-control" name="descripcion" rows="5" id="descripcion" required></textarea>
 
                             <label for="vinculo">Vínculo a nota:</label>
                             <input type="text" id="vinculo" name="vinculo" class="form-control" placeholder="Ingresar vinculo" required>
@@ -99,7 +99,7 @@ if(!isset($_SESSION["nombre"]))	{
                             <input type="date" class="form-control" id="fecha" name="fecha" required>
                             
                             <label for="foto">Subir imagen</label>
-                            <input type="file" style="margin-bottom: 20px;" name="foto" id="foto2">
+                            <input type="file" style="margin-bottom: 20px;" name="foto" id="foto2" required>
                             
                             <div>
                                 <label for="thumb">Previsualización</label>

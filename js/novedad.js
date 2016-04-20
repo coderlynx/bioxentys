@@ -30,6 +30,9 @@ init: function() {
         $(this).parent().find("#descripcion").val('');
         $(this).parent().find("#vinculo").val('');
         $(this).parent().find("#fecha").val('');
+        $(this).parent().find("#prev").attr('src','images/novedades/sin_imagen.jpg');
+        
+        $(this).parent().find("#titulo").focus();
         
     });
 
