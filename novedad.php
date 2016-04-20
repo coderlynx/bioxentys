@@ -18,7 +18,7 @@ class Novedad implements JsonSerializable {
         $this->fecha = $fecha;
     }
     
-    private function normalizeDate($date) {
+    private static function normalizeDate($date) {
         if(!empty($date)){ 
             $var = explode('/',str_replace('-','/',$date));
             return "$var[2]/$var[1]/$var[0]"; 

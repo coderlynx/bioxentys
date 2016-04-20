@@ -64,16 +64,18 @@ if(!isset($_SESSION["nombre"]))	{
                             <input type="text" id="vinculo" name="vinculo" class="form-control" placeholder="Ingresar vinculo" required>
 
                             <label for="fecha">Fecha:</label>
-                            <input type="date" id="fecha" name="fecha" required>
+                            <input type="date" class="form-control" id="fecha" name="fecha" required>
                             
                             <label for="foto">Subir imagen</label>
-                            <input type="file" name="foto" id="foto">
+                            <input type="file" style="margin-bottom: 20px;" name="foto" id="foto1">
                             
-                            <label for="thumb">Foto</label>
-                            <img alt="thumb" id="prev" />
-                            
+                            <div>
+                                <label for="thumb">Previsualización</label>
+                                <img alt="thumb" id="prev" />
+                            </div>
                             <button class="btn btn-success actualizar"  type="submit">ACTUALIZAR</button>
-                            <button class="btn btn-danger" type="submit">Cancelar</button>
+                            <input class="btn btn-success cancelar" type="button" value="CANCELAR"/>
+<!--                            <button class="btn btn-danger" class="cancelar" >Cancelar</button>-->
  
                         </form>
                          
@@ -94,17 +96,21 @@ if(!isset($_SESSION["nombre"]))	{
                             <input type="text" id="vinculo" name="vinculo" class="form-control" placeholder="Ingresar vinculo" required>
 
                             <label for="fecha">Fecha:</label>
-                            <input type="date" id="fecha" name="fecha" required>
+                            <input type="date" class="form-control" id="fecha" name="fecha" required>
                             
                             <label for="foto">Subir imagen</label>
-                            <input type="file" name="foto" id="foto">
+                            <input type="file" style="margin-bottom: 20px;" name="foto" id="foto2">
                             
-                            <label for="thumb">Foto</label>
-                            <img alt="thumb" id="prev" />
+                            <div>
+                                <label for="thumb">Previsualización</label>
+                                <img alt="thumb" id="prev" />
+                            </div>
 
                             <button class="btn btn-success actualizar" type="submit">ACTUALIZAR</button>
-                            <button class="btn btn-danger" type="submit">Cancelar</button>
+                            <input class="btn btn-success cancelar" type="button" value="CANCELAR"/>
+<!--                            <button class="btn btn-danger cancelar">Cancelar</button>-->
                         </form>
+                        
                     </div>
                 </div>
             </div>

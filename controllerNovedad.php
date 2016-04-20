@@ -10,11 +10,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     exit;
 }
 
+//si no hay foto cargada
+if($_FILES['foto']['name'] == null && $_FILES['foto']['size'] == 0) 
+    die('Debe cargar una imagen');
+
 /* Inserta novedades */
 // Tratamiento archivo
 $archivo = new Archivo();
 $archivo->nombreInput = key($_FILES);
-if(!isset($_FILES[$archivo->nombreInput]['name'])) die(json_encode($_POST));//die('No hay foto cargada');
 
 $archivo->nombre = $_FILES[$archivo->nombreInput]['name'];
 $archivo->tipo = $_FILES[$archivo->nombreInput]['type'];
@@ -28,10 +31,10 @@ if($archivo->validar()) {
 }
 
 // Cargo novedad
-if($ruta_resize) {
+if(isset($ruta_resize)) {
     $novedad = new Novedad($_POST['id'], $_POST['titulo'], $_POST['fecha'], $_POST['descripcion'], $ruta_resize, $_POST['vinculo']);
     $nov = Novedad::insert($novedad);
     
-    if($nov) echo 'Novedad cargada exitosamente';
+    if($nov) echo 'ok';
 }
 ?>

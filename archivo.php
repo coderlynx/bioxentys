@@ -22,12 +22,22 @@ class archivo {
   }
 
   public function validar() {
+        $allowed =  array('gif','png' ,'jpg','jpeg');
+        $filename = $_FILES[$this->nombreInput]['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if(!in_array($ext,$allowed) ) {
+            echo "La extensión del archivo no es correcta.<br>
+            Se permiten archivos .gif o .jpeg o .png o jpg.<br>";
+            return false;
+        }
+     /* no se porque el png no pasaba esta validacion
     if(!(strpos($this->tipo, "gif") || strpos($this->tipo, "jpeg")) || strpos($this->tipo, "jpg") || 
          strpos($this->tipo, "png")) {
-      echo "La extensión del archivo no es correcta.<br>
-            Se permiten archivos .gif o .jpeg o .png o jpg.<br>";
+      echo strpos($this->tipo, "png");//"La extensión del archivo no es correcta.<br>
+            //Se permiten archivos .gif o .jpeg o .png o jpg.<br>";
       return false;
-    }
+    }*/
+      
     if($this->size > self::MAX_SIZE) {
       echo "El tamaño del archivos no es correcto.<br>
             Se permiten archivos de 100 Kb máximo.<br>";
@@ -49,6 +59,9 @@ class archivo {
   public function resize($width, $height) {
       /* Get original image x y*/
       list($w, $h) = getimagesize($_FILES[$this->nombreInput]['tmp_name']);
+      
+      //valido el tamaño minimio de la imagen
+      if($w < 150 || $h < 150) die("La imagen debe tener como minimo un ancho y alto de 150px.");
       /* calculate new image size with ratio */
       $ratio = max($width/$w, $height/$h);
       $h = ceil($height / $ratio);

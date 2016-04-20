@@ -7,25 +7,7 @@ init: function() {
        
         var formData = new FormData(this);
         
-        $.ajax({
-            type: "POST",
-            url: "controllerNovedad.php",
-            mimeType:"multipart/form-data",
-            data: formData,
-            contentType: false,
-            cache: false,
-            processData:false,
-            success: function(data){
-                alert(data);
-                //window.location.replace("index.html");
-                //cargarNovedades(); 
-            },
-            error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-                console.log(textStatus);
-                console.log(error);
-            }
-        });
+        _this.realizarPeticon(formData);
         
         e.preventDefault();
         return false;
@@ -35,29 +17,22 @@ init: function() {
        
         var formData = new FormData(this);
         
-        $.ajax({
-            type: "POST",
-            url: "controllerNovedad.php",
-            mimeType:"multipart/form-data",
-            data: formData,
-            contentType: false,
-            cache: false,
-            processData:false,
-            success: function(data){
-                alert(data);
-                //window.location.replace("index.html");
-                //cargarNovedades(); 
-            },
-            error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-                console.log(textStatus);
-                console.log(error);
-            }
-        });
+        _this.realizarPeticon(formData);
         
         e.preventDefault();
         return false;
     });
+    
+    
+    $(".cancelar").click(function(){
+
+        $(this).parent().find("#titulo").val('');
+        $(this).parent().find("#descripcion").val('');
+        $(this).parent().find("#vinculo").val('');
+        $(this).parent().find("#fecha").val('');
+        
+    });
+
 
     
     $("#logout").click(function(){
@@ -73,13 +48,44 @@ init: function() {
         });
 
 },
+realizarPeticon:function(formData) {
+     $.ajax({
+            type: "POST",
+            url: "controllerNovedad.php",
+            mimeType:"multipart/form-data",
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                if(data == "ok") {
+                    alert("Novedad carga exitosamente");
+                    location.reload();
+                } else {
+                    alert(data);
+                }
+                //window.location.replace("index.html");
+                //cargarNovedades(); 
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+},
 cargarNovedades: function() {
     var _this = this;
+    var ruta = 'controllerNovedad.php';
+    if ($("#novedades").length == 1) 
+        ruta = 'panel/controllerNovedad.php';
+    
+    
     $.ajax({
         async:false,    
         cache:false,   
         type: "GET",
-        url: "controllerNovedad.php",
+        url: ruta,
         success:  function(novedades){  
             var rta = JSON.parse(novedades);
            // var items = [];
